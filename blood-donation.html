@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donation Form</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: whitesmoke;
+      margin: 20px;
+    }
+
+    form {
+      background-color: white;
+      padding: 20px;
+      border: 1px ;
+      max-width: 700px;
+      margin: auto;
+      border-radius: 6px;
+    }
+
+    h1 {
+      color: red;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid ;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 5px;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      margin-top: 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Donor Information</h1>
+
+  <form>
+    <label>First Name *</label>
+    <input type="text" required>
+
+    <label>Last Name *</label>
+    <input type="text" required>
+
+    <label>Email *</label>
+    <input type="email" required>
+
+    <label>Donation Amount *</label>
+    <input type="radio" name="amount" value="50"> $50
+    <input type="radio" name="amount" value="100"> $100
+    <input type="radio" name="amount" value="250"> $250
+    <input type="radio" name="amount" value="other"> Other:
+    <input type="number" placeholder="Enter amount">
+
+    <br><br>
+    <input type="submit" value="Continue">
+    <input type="reset" value="Reset">
+  </form>
+</body>
+</html>

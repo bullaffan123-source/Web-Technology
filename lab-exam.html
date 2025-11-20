@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Event Registation Form</title>
+        <style>
+            body{ 
+               font-family: Arial, sans-serif; 
+               background:whitesmoke;
+               padding: 40px;
+            }
+            .container{
+                max-width: 600px;
+                margin:auto;
+                background:white;
+                padding: 25px;
+                border: radius 10px;
+                box-shadow: 0,0,10px black;
+            }
+            h2{
+                text-align: center;
+                margin-bottom: 25px;
+            }
+            label{ 
+                font-weight: bold;
+                display: block;
+                margin-top: 15px;
+            }
+            input,button{
+                width: 100%;
+                padding: 10px;
+                margin-top: 5px;
+                border-radius: 5px;
+                border: 1px solid beige;
+                font-size: 16px;
+            }
+            .error{
+                color: red;
+                font-size: 15px;
+                margin-top: 5px;
+            }
+            .radio-group{
+                margin-top: 10px;
+            }
+            .radio-group label{
+                display:inline-block;
+                margin-right: 15px;
+                font-weight: normal;
+            }
+            button{
+                margin-top: 20px;
+                background: skyblue;
+                color:white;
+                cursor: pointer;
+                border: none;
+            }
+            button:hover{
+                background: skyblue;
+            }
+            #analyticsPanel{
+                margin-top: 25px;
+                padding: 20px;
+                background: white;
+                border-radius: 10px;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Event Registation</h2>
+            <form id="regForm">
+                <label> Full Name *</label>
+                <input type="text"id="fullName">
+                <div id="nameError"class="error"></div>
+
+                <label>Email: </label><br>
+                <input type="text" id="email" /><br>
+                <span class="error" id="emailError"></span><br><br>
+
+                <label>Company/Institution (Optional): </label><br>
+                <input type="text" id="company" /><br><br>
+
+                <label>Attendance Type:</label><br>
+                <input type="radio" name="attendance" value="Virtual"> Virtual
+                <input type="radio" name="attendance" value="In-Person"> In-Person<br>
+                <span class="error" id="typeError"></span><br><br>
+
+                <button onclick="register()">Register</button>
+</div>
+<button id="toggleBtn" style="margin-top:20px; display:block; margin:auto;" onclick="toggleStats()">Show Event Analytics</button>
+<div id="statsPanel">
+    <h3>Event Analytics</h3>
+    <p>Total Registrants: <span id="total"></span></p>
+    <p>Virtual: <span id="virtualCount"></span></p>
+    <p>In-Person: <span id="inPersonCount"></span></p>
+</div>
+<script>
+let registrants = [];
+function register() {
+    let name = document.getElementById("fullName").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let company = document.getElementById("company").value.trim();
+    let attendance = document.querySelector('input[name="attendance"]:checked');
+
+    let valid = true;
+    if (name.length < 6 || name.length > 100) {
+        document.getElementById("nameError").innerText = "Name must be between 6 and 100 characters.";
+        valid = false;
+    } else {
+        document.getElementById("nameError").innerText = "";
+    }
+    let emailPattern = /^[^@]+@[^@]+\.[^@]+$/;
+    if (!emailPattern.test(email)) {
+        document.getElementById("emailError").innerText = "Please enter a valid professional email address.";
+        valid = false;
+    } else {
+        document.getElementById("emailError").innerText = "";
+    }
+    if (!attendance) {
+        document.getElementById("typeError").innerText = "Please select your attendance type.";
+        valid = false;
+    } else {
+        document.getElementById("typeError").innerText = "";
+    }
+
+    if (!valid) return;
+    registrants.push({ name, email, company, attendance: attendance.value });
+    alert("Registration Successful!");
+    updateStats();
+}
+function updateStats() {
+    let total = registrants.length;
+    let virtual = registrants.filter(r => r.attendance === "Virtual").length;
+    let inPerson = registrants.filter(r => r.attendance === "In-Person").length;
+
+    document.getElementById("total").innerText = total;
+    document.getElementById("virtualCount").innerText = virtual;
+    document.getElementById("inPersonCount").innerText = inPerson;
+}
+function toggleStats() {
+    let panel = document.getElementById("statsPanel");
+    let btn = document.getElementById("toggleBtn");
+
+    if (panel.style.display === "none") {
+        panel.style.display = "block";
+        btn.innerText = "Hide Event Analytics";
+    } else {
+        panel.style.display = "none";
+        btn.innerText = "Show Event Analytics";
+    }
+}
+       </script>
+    </body>
+</html>
